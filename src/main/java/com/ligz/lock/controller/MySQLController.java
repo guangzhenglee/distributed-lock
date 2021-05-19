@@ -18,4 +18,9 @@ public class MySQLController {
     public void createOrder() throws Exception {
         orderService.createOrderByPessimisticLock(1L, 1L);
     }
+
+    @PostMapping("optimistic")
+    public void createOptimisticOrder() throws Exception {
+        orderService.createOrderByOptimisticLock(1L, 1L);
+    }
 }
