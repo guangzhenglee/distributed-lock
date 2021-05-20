@@ -1,4 +1,4 @@
-package com.ligz.lock.service;
+package com.ligz.lock.listener;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.retry.RetryCallback;
@@ -25,7 +25,6 @@ class RetryListener extends RetryListenerSupport {
     @Override
     public <T, E extends Throwable> boolean open(RetryContext context,
                                                  RetryCallback<T, E> callback) {
-        log.error("Exception Occurred, Retry Session Started ");
         return super.open(context, callback);
     }
 }

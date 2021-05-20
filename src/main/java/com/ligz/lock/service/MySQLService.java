@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Log4j2
-public class OrderService {
+public class MySQLService {
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
     private final OptimisticProductRepository optimisticProductRepository;
@@ -36,7 +36,7 @@ public class OrderService {
         }
         product.setProductCount(product.getProductCount() - amount);
         productRepository.save(product);
-        Order order = Order.builder().orderName("order").productId(productId).build();
+        Order order = Order.builder().orderName("pessimistic").productId(productId).build();
         orderRepository.save(order);
     }
 
@@ -59,7 +59,7 @@ public class OrderService {
             throw new RetryException("乐观锁CAS失败");
         }
         log.info("乐观锁CAS成功");
-        Order order = Order.builder().orderName("order").productId(productId).build();
+        Order order = Order.builder().orderName("optimistic").productId(productId).build();
         orderRepository.save(order);
     }
 }
